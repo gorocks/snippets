@@ -1,7 +1,6 @@
 package redis
 
 import (
-	"fmt"
 	"testing"
 	"time"
 
@@ -290,13 +289,10 @@ func TestSetNX(t *testing.T) {
 		}
 	}
 	if ok {
-		fmt.Println("I am holding the lock")
 		// do sth
 		// then release the lock
 		c.Del(k)
-		fmt.Println("I have released the lock")
 	} else {
-		fmt.Println("I can not hold the lock, please retry again")
+		// retry or return error
 	}
-
 }
