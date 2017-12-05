@@ -1,4 +1,4 @@
-package redis
+package redis_test // for go-redis black test
 
 import (
 	"testing"
