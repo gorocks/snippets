@@ -29,3 +29,26 @@ func TestIsDeformation(t *testing.T) {
 		})
 	}
 }
+
+func TestNumSum(t *testing.T) {
+	type args struct {
+		s string
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{"sum of 'A1CD2E33' is 36", args{"A1CD2E33"}, 36},
+		{"sum of 'A-1B--2C--D6E' is 7", args{"A-1B--2C--D6E"}, 7},
+		{"sum of 'A-11B--2C--D6E' is 7", args{"A-11B--2C--D6E"}, -3},
+		{"sum of 'A-1.1B--2C--D6E' is 7", args{"A-1.1B--2C--D6E"}, 8},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := NumSum(tt.args.s); got != tt.want {
+				t.Errorf("NumSum() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
