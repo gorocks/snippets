@@ -2,12 +2,11 @@ package syncs_test
 
 import (
 	"fmt"
-	"testing"
 
 	"github.com/gorocks/snippets/go/syncs"
 )
 
-func TestBarrierWait(t *testing.T) {
+func ExampleBarrier() {
 	b := syncs.NewBarrier(5)
 	for i := 0; i < 4; i++ {
 		go func(i int) {
