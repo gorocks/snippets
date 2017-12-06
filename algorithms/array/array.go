@@ -28,3 +28,45 @@ func MergeTwoArray(a, b []int) []int {
 	}
 	return c
 }
+
+// BinaryFirstSearch 二分查找(有重复则返回第一个), 找到返回其位置, 否则返回 -1.
+func BinaryFirstSearch(a []int, k int) int {
+	n := len(a)
+	l, h := 0, n-1
+	for l <= h {
+		m := l + (h-l)/2
+		if k > a[m] {
+			l = m + 1
+		} else if k < a[m] {
+			h = m - 1
+		} else {
+			if m > 0 && a[m-1] == k {
+				h = m - 1 // 继续向左二分查找
+			} else {
+				return m
+			}
+		}
+	}
+	return -1
+}
+
+// BinaryLastSearch 二分查找(有重复则返回最后一个), 找到返回其位置, 否则返回 -1
+func BinaryLastSearch(a []int, k int) int {
+	n := len(a)
+	l, h := 0, n-1
+	for l <= h {
+		m := l + (h-l)/2
+		if k > a[m] {
+			l = m + 1
+		} else if k < a[m] {
+			h = m - 1
+		} else {
+			if m < n-1 && a[m+1] == k {
+				l = m + 1 // 继续向右二分查找
+			} else {
+				return m
+			}
+		}
+	}
+	return -1
+}
