@@ -4,6 +4,8 @@
 /*
 Package tutorial is a generated protocol buffer package.
 
+protoc -I=proto/tutorial/ --go_out=proto/tutorial/ proto/tutorial/addressbook.proto
+
 It is generated from these files:
 	addressbook.proto
 
