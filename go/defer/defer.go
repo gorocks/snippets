@@ -1,18 +1,4 @@
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	fmt.Println(doubleInt(0))
-	fmt.Println(doubleInt(40))
-	fmt.Println(doubleInt(50))
-
-	fmt.Println(doubleInt0(0))
-	fmt.Println(doubleInt0(40))
-	fmt.Println(doubleInt0(50))
-}
+package defers
 
 func doubleInt(i int) int {
 	var r int
