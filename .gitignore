@@ -29,3 +29,6 @@
 
 ### GoLand ###
 .idea
+
+### dep
+vendor
