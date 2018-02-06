@@ -36,13 +36,14 @@ func TestKafka(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
+	timeout := time.After(1 * time.Second)
 	for {
 		select {
 		case err := <-pc.Errors():
 			t.Log(err)
 		case m := <-pc.Messages():
 			t.Log("Received messages ", string(m.Key), string(m.Value), m.Offset)
-		case <-time.After(1 * time.Second):
+		case <-timeout:
 			return
 		}
 	}
