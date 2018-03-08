@@ -10,8 +10,8 @@
 [[projects]]
   name = "github.com/Shopify/sarama"
   packages = ["."]
-  revision = "3b1b38866a79f06deddf0487d5c27ba0697ccd65"
-  version = "v1.15.0"
+  revision = "f7be6aa2bc7b2e38edf816b08b582782194a1c02"
+  version = "v1.16.0"
 
 [[projects]]
   name = "github.com/davecgh/go-spew"
@@ -45,10 +45,12 @@
     "internal/consistenthash",
     "internal/hashtag",
     "internal/pool",
-    "internal/proto"
+    "internal/proto",
+    "internal/singleflight",
+    "internal/util"
   ]
-  revision = "8b4fa6d443e35ca8b1c37be877285252430b06a3"
-  version = "v6.8.3"
+  revision = "9133634a132e00309476e2d9acbf0c8058d4c888"
+  version = "v6.10.0"
 
 [[projects]]
   name = "github.com/go-sql-driver/mysql"
@@ -57,10 +59,10 @@
   version = "v1.3"
 
 [[projects]]
-  branch = "master"
   name = "github.com/golang/protobuf"
   packages = ["proto"]
-  revision = "bbd03ef6da3a115852eaf24c8a1c46aeb39aa175"
+  revision = "925541529c1fa6821df4e44ce2723319eb2be768"
+  version = "v1.0.0"
 
 [[projects]]
   branch = "master"
@@ -78,7 +80,7 @@
   branch = "master"
   name = "github.com/lann/builder"
   packages = ["."]
-  revision = "f22ce00fd9394014049dad11c244859432bd6820"
+  revision = "1b87b36280d04fe7882d1512bf038ea2967ad534"
 
 [[projects]]
   branch = "master"
@@ -87,10 +89,31 @@
   revision = "62de8c46ede02a7675c4c79c84883eb164cb71e3"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/mailru/easyjson"
+  packages = [
+    ".",
+    "buffer",
+    "jlexer",
+    "jwriter"
+  ]
+  revision = "4a8a4c12c4d1b0c0a7de630426ce6dcb07141b17"
+
+[[projects]]
   name = "github.com/nsqio/go-nsq"
   packages = ["."]
   revision = "eee57a3ac4174c55924125bb15eeeda8cffb6e6f"
   version = "v1.0.7"
+
+[[projects]]
+  name = "github.com/olivere/elastic"
+  packages = [
+    ".",
+    "config",
+    "uritemplates"
+  ]
+  revision = "2982cec1ae1eb496c4e6ec43b4136bedb977fec7"
+  version = "v6.1.8"
 
 [[projects]]
   name = "github.com/pierrec/lz4"
@@ -103,6 +126,12 @@
   packages = ["xxHash32"]
   revision = "f051bb7f1d1aaf1b5a665d74fb6b0217712c69f7"
   version = "v0.1.1"
+
+[[projects]]
+  name = "github.com/pkg/errors"
+  packages = ["."]
+  revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
+  version = "v0.8.0"
 
 [[projects]]
   name = "github.com/pmezard/go-difflib"
@@ -123,14 +152,14 @@
   version = "v1.2.1"
 
 [[projects]]
-  branch = "v2"
   name = "gopkg.in/yaml.v2"
   packages = ["."]
-  revision = "d670f9405373e636a5a2765eea47fac0c9bc91a4"
+  revision = "7f97868eec74b32b0982dd158a51a446d1da7eb5"
+  version = "v2.1.1"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "e4604c196ae53e4f9c40f4ef02721dbd058239cc32dbc365d7398bcf3d94b30e"
+  inputs-digest = "6500e0c9d1079a3b93b48861996a6a1723178b609336bb7dbffcfa15149036c0"
   solver-name = "gps-cdcl"
   solver-version = 1
