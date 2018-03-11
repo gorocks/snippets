@@ -2,7 +2,7 @@ package elastic_test
 
 import (
 	"context"
-	"encoding/json"
+	"log"
 	"os"
 	"testing"
 
@@ -22,50 +22,46 @@ var (
 
 func TestMain(m *testing.M) {
 	ctx = context.Background()
-	c, err := elastic.NewClient(elastic.SetURL("http://127.0.0.1:9200"))
+	c, err := elastic.NewClient(
+		elastic.SetURL("http://127.0.0.1:9200"),
+		elastic.SetTraceLog(log.New(os.Stdout, "", log.LstdFlags)),
+	)
 	if err != nil {
 		panic(err)
 	}
 	client = c
-	setup(client)
 	code := m.Run()
-	shutdown(client)
+	c.Stop()
 	os.Exit(code)
 }
 
-func setup(c *elastic.Client) {
-	_, err := c.Index().Index("blog").Type("article").Id("1").BodyJson(&blog{
-		Title:   "New version of Elasticsearchan released!",
-		Content: "Version 1.0 released today!",
-		Tags:    []string{"announce", "elasticsearch", "release"},
-	}).Do(ctx)
-	if err != nil {
-		panic(err)
-	}
-}
-
-func shutdown(c *elastic.Client) {
-	_, err := client.DeleteIndex("blog").Do(ctx)
-	if err != nil {
-		panic(err)
-	}
-	c.Stop()
-}
-
-func TestGetADocument(t *testing.T) {
-	resp, err := client.Get().Index("blog").Type("article").Id("1").Do(ctx)
+func deleteIndex(t *testing.T, c *elastic.Client, index string) {
+	_, err := client.DeleteIndex(index).Do(ctx)
 	if err != nil {
 		t.Error(err)
 	}
-	var b blog
-	json.Unmarshal(*resp.Source, &b) // nolint: gas
-	t.Logf("%v %#v %v", resp, b, *resp.Version)
 }
 
-func TestUpdateADocument(t *testing.T) {
-	resp, err := client.Update().Index("blog").Type("article").Id("1").Script(elastic.NewScriptInline("ctx._source.content = \"new content1\"")).Do(ctx)
-	if err != nil {
-		t.Error(err)
+type doc map[string]interface{}
+
+// https://ume.la/4xyjUg
+func TestDealWithNull(t *testing.T) {
+	defer deleteIndex(t, client, "my_index")
+
+	br, err := client.Bulk().Index("my_index").Type("posts").Add(
+		elastic.NewBulkIndexRequest().Id("1").Doc(doc{"tags": []string{"search"}}),
+		elastic.NewBulkIndexRequest().Id("2").Doc(doc{"tags": []string{"search", "open_source"}}),
+		elastic.NewBulkIndexRequest().Id("3").Doc(doc{"other_field": "some data"}),
+		elastic.NewBulkIndexRequest().Id("4").Doc(doc{"tags": nil}),
+		elastic.NewBulkIndexRequest().Id("5").Doc(doc{"tags": []interface{}{"search", nil}}),
+	).Do(ctx)
+	for _, v := range br.Indexed() {
+		t.Log(v.Status)
 	}
-	t.Logf("%+v", resp)
+
+	sr, err := client.Search().Index("my_index").Type("posts").Query(elastic.NewConstantScoreQuery(elastic.NewExistsQuery("tags"))).Do(ctx)
+	t.Log(sr.TotalHits(), err)
+
+	sr, err = client.Search().Index("my_index").Type("posts").Query(elastic.NewConstantScoreQuery(elastic.NewBoolQuery().MustNot(elastic.NewExistsQuery("tags")))).Do(ctx)
+	t.Log(sr.TotalHits(), err)
 }

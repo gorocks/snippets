@@ -1,0 +1,54 @@
+
+@host = http://localhost:9200
+@contentType = application/json
+
+###
+
+POST {{host}}/books/es/1
+Content-Type: {{contentType}}
+
+{
+    "title": "Elasticsearch Server",
+    "published": 2013
+}
+
+###
+POST {{host}}/books/es/2
+Content-Type: {{contentType}}
+
+{
+    "title": "Mastering Elasticsearch",
+    "published": 2013
+}
+
+###
+
+GET {{host}}/books/_search?pretty HTTP/1.1
+
+###
+
+GET {{host}}/books/es/_search?pretty HTTP/1.1
+
+###
+
+GET {{host}}/_search?pretty HTTP/1.1
+
+###
+
+GET {{host}}/books/_search?pretty&q=title:elasticsearch HTTP/1.1
+
+###
+
+# 查看 title 字段上的短语 "Elasticsearch Server" 建立的索引具体是什么. -- elastic v6
+# elastic 把文本划分为两个词, 第一个标记值 (token value) 为 elasticsearch, 第二个为 server.
+POST {{host}}/books/_analyze HTTP/1.1
+Content-Type: {{contentType}}
+
+{
+    "text": ["Elasticsearch Server"],
+    "field": "title"
+}
+
+###
+
+GET {{host}}/books/_search?pretty&q=published:2013&df=title&explain=true&default_operator=AND HTTP/1.1
