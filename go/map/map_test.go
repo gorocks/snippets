@@ -1,4 +1,4 @@
-package map_test
+package maps_test
 
 import (
 	"testing"

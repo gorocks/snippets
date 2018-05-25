@@ -1,4 +1,4 @@
-package range_test
+package ranges_test
 
 import (
 	"reflect"
