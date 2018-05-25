@@ -12,6 +12,3 @@ before_install:
 install:
   - go get -u -x golang.org/x/vgo
   - vgo build -v ./...
-
-script:
-  - vgo test ./...
