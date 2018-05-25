@@ -1,0 +1,17 @@
+language: go
+
+go:
+  - 1.10
+  - tip
+
+sudo: false
+
+before_install:
+  - echo -e "machine api.github.com login douglarek password $GITHUB_TOKEN" >> ~/.netrc
+
+install:
+  - go get -u -x golang.org/x/vgo
+  - vgo build -v ./...
+
+script:
+  - vgo test ./...
