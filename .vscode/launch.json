@@ -12,10 +12,17 @@
             "remotePath": "",
             "port": 2345,
             "host": "127.0.0.1",
-            "program": "${workspaceRoot}/go/cmd/gosnippets/",
-            "env": {},
+            "program": "${fileDirname}",
             "args": [],
-            "showLog": true
+            "showLog": true,
+            "useApiV1": false,
+            "dlvLoadConfig": {
+                "followPointers": true,
+                "maxVariableRecurse": 1,
+                "maxStringLen": 512,
+                "maxArrayValues": 64,
+                "maxStructFields": -1
+            }
         }
     ]
 }

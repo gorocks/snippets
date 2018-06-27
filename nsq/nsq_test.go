@@ -5,6 +5,8 @@ import (
 	"strconv"
 	"sync"
 	"testing"
+
+	nsq "github.com/nsqio/go-nsq"
 )
 
 func newProducer() *nsq.Producer {

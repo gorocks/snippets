@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/olivere/elastic"
+	elastic "gopkg.in/olivere/elastic.v5"
 )
 
 type blog struct {
